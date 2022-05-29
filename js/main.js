@@ -30,6 +30,4 @@ console.log (`${jugador2.nombre} elegiste ${jugador2.campeon.nombre}`)
 
 //Empieza la batalla a muerte!
 
-//batalla de prueba:
-
 batalla(jugador1, jugador2)
