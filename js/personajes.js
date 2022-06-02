@@ -16,17 +16,59 @@ export const ahri = {
 
     habilidadBasica: function(enemigo){     //Q
         if(this.mana>=100){
-            enemigo.vida-=200
-            this.mana-=100
+            enemigo.vida-=250
+            this.mana-=150
+            this.vida+=150
             console.log(`-->Michi Ahri lanzo un orbe a ${enemigo.nombre}`)
-            console.log(`--Daño infligido: 200`)
-            console.log(`--Mana consumido: 100`)
+            console.log(`--Daño infligido: 250`)
+            console.log(`--Mana consumido: 150`)
+            console.log(`--Vida regenerada: 150`)
             return true
         }else {
             console.log(`Ahri no tiene suficiente mana: ${this.mana}`)
             return false
         }
     },
+
+    habilidadSecundaria: function(enemigo){    //W
+        
+        if(this.habilidadesUsadas[1] && this.mana>=200) {
+            enemigo.vida-=200
+            this.mana-=150
+            this.habilidadesUsadas[1] = 0
+            console.log(`-->Michi Ahri lanzo fuego zorruno a ${enemigo.nombre}`)
+            console.log(`--Daño infligido: 200`)
+            console.log(`--Mana consumido: 150`)
+            return true
+        }else {
+            if(!this.habilidadesUsadas[1]){
+                console.log(`Ahri ya utilizo su fuego zorruno`)
+            }else{
+                console.log(`Ahri no tiene suficiente mana: ${this.mana}`)
+            }
+            return false      
+        }
+    },
+
+    habilidadDeControl: function(enemigo){    //E
+        
+        if(this.habilidadesUsadas[2] && this.mana>=200) {
+            this.mana-=200
+            this.habilidadesUsadas[2] = 0
+            console.log(`-->Ahri hechizo a ${enemigo.nombre} y pierde su turno.`)
+            console.log(`--Mana consumido: 200`)
+            return true
+        }else {
+            if(!this.habilidadesUsadas[2]){
+                console.log(`Ahri ya utilizo su hechizo`)
+            }else{
+                console.log(`Ahri no tiene suficiente mana: ${this.mana}`)
+            }
+            return false      
+        }
+    },
+
+    
 
     habilidadDefinitiva: function(enemigo){    //R  
         
@@ -73,6 +115,44 @@ export const poppy = {
         }else {
             console.log(`Poppy no tiene suficiente mana: ${this.mana}`)
             return false
+        }
+    },
+
+    habilidadSecundaria: function(enemigo){    //W
+        
+        if(this.habilidadesUsadas[1] && this.mana>=200) {
+            enemigo.vida-=200
+            this.mana-=150
+            this.habilidadesUsadas[1] = 0
+            console.log(`-->Michi Poppy lanzo martillazo a ${enemigo.nombre}`)
+            console.log(`--Daño infligido: 200`)
+            console.log(`--Mana consumido: 150`)
+            return true
+        }else {
+            if(!this.habilidadesUsadas[1]){
+                console.log(`Poppy ya utilizo su martillazo`)
+            }else{
+                console.log(`Poppy no tiene suficiente mana: ${this.mana}`)
+            }
+            return false      
+        }
+    },
+
+    habilidadDeControl: function(enemigo){    //E
+        
+        if(this.habilidadesUsadas[2] && this.mana>=150) {
+            this.mana-=150
+            this.habilidadesUsadas[2] = 0
+            console.log(`-->Poppy aturde a ${enemigo.nombre} y pierde su turno.`)
+            console.log(`--Mana consumido: 150`)
+            return true
+        }else {
+            if(!this.habilidadesUsadas[2]){
+                console.log(`Poppy ya utilizo su carga heroica que aturde`)
+            }else{
+                console.log(`Poppy no tiene suficiente mana: ${this.mana}`)
+            }
+            return false      
         }
     },
 
@@ -123,6 +203,44 @@ export const teemo = {
         }
     },
 
+    habilidadSecundaria: function(enemigo){    //W
+        
+        if(this.habilidadesUsadas[1] && this.mana>=100) {
+            enemigo.vida-=200
+            this.mana-=100
+            this.habilidadesUsadas[1] = 0
+            console.log(`-->Michi Teemo lanza un tiro tóxico a ${enemigo.nombre}`)
+            console.log(`--Daño infligido: 200`)
+            console.log(`--Mana consumido: 100`)
+            return true
+        }else {
+            if(!this.habilidadesUsadas[1]){
+                console.log(`Teemo ya utilizo su tiro tóxico`)
+            }else{
+                console.log(`Teemo no tiene suficiente mana: ${this.mana}`)
+            }
+            return false      
+        }
+    },
+
+    habilidadDeControl: function(enemigo){    //E
+        
+        if(this.habilidadesUsadas[2] && this.mana>=100) {
+            this.mana-=100
+            this.habilidadesUsadas[2] = 0
+            console.log(`-->Teemo lanza un dardo cegador a ${enemigo.nombre} y pierde su turno.`)
+            console.log(`--Mana consumido: 100`)
+            return true
+        }else {
+            if(!this.habilidadesUsadas[2]){
+                console.log(`Teemo ya utilizo su hechizo`)
+            }else{
+                console.log(`Teemo no tiene suficiente mana: ${this.mana}`)
+            }
+            return false      
+        }
+    },
+
     habilidadDefinitiva: function(enemigo){    //R                     
         if(this.habilidadesUsadas[3] && this.mana>=200) {
             enemigo.vida-= 400
@@ -149,45 +267,62 @@ export const teemo = {
 export function batalla(pj1, pj2){
     while(pj1.campeon.vida>0 && pj2.campeon.vida>0){
 
-        console.log(`_______${pj1.nombre}_______`)
+
+        console.log(`_________________${pj1.nombre}___________________`)
 
         //Turno de pj1:
         console.log(`Es el turno de ${pj1.nombre}`)
         estadoDelCampeon(pj1)
-        movimientoDelJugador(pj1.campeon, pj2.campeon)
+        if(movimientoDelJugador(pj1.campeon, pj2.campeon)){
+            console.log(movimientoDelJugador(pj1.campeon, pj2.campeon))
+            console.log(`Pierdes tu turno ${pj2.nombre}`)
+        }else{
+            console.log(`_________________${pj2.nombre}__________________`)
 
-        console.log(`_______${pj2.nombre}_______`)
-
-        //Turno de pj2:
-        console.log(`Es el turno de ${pj2.nombre}`)
-        estadoDelCampeon(pj2)
-        movimientoDelJugador(pj2.campeon, pj1.campeon)
+            //Turno de pj2:
+            console.log(`Es el turno de ${pj2.nombre}`)
+            estadoDelCampeon(pj2)
+            movimientoDelJugador(pj2.campeon, pj1.campeon)
+        }
 
     }
 
-    console.log("______________________________")
+    console.log("___________________________________________")
     
-    if(pj1.vida==0){
+    if(pj2.campeon.vida<0){
+        pj2.campeon.vida=0
+        estadoDelCampeon(pj2)
         console.log(`${pj2.campeon.nombre} fue derrotado`)
         console.log(`${pj1.nombre} has ganado esta batalla!`)
-    }else
-    console.log(`${pj1.campeon.nombre} fue derrotado`)
-    console.log(`${pj2.nombre} has ganado esta batalla!`)
+    }else{
+        pj1.campeon.vida=0
+        estadoDelCampeon(pj1)
+        console.log(`${pj1.campeon.nombre} fue derrotado`)
+        console.log(`${pj2.nombre} has ganado esta batalla!`)
+    }
 }
 
 
 /**
- * Esta funcion ejecuta una habilidad selecionada por el usuario
+ * Esta funcion ejecuta una habilidad selecionada por el usuario y devuelve 
+ * un boolean: true--> Contrincante pierde su turno
  * @param {object} pj1 es el jugador numero 1
  * @param {object} pj2 es el jugador numero 2
  */
 function movimientoDelJugador(pj1, pj2){
     let seEjecuto
+    let habilidad
     do{
-        let habilidad = menuDeHabilidades(pj1)
+        habilidad = menuDeHabilidades(pj1)
         switch (habilidad){
             case "q":
                 seEjecuto = pj1.habilidadBasica(pj2)
+            break
+            case "w":
+                seEjecuto = pj1.habilidadSecundaria(pj2)
+                break
+            case "e":
+                seEjecuto = pj1.habilidadDeControl(pj2)
             break
             case "r":
                 seEjecuto = pj1.habilidadDefinitiva(pj2)
@@ -200,13 +335,21 @@ function movimientoDelJugador(pj1, pj2){
             console.log("Escoje otra opción.")
         }
     }while(!seEjecuto)
+    if(habilidad=="e"){
+        return true
+    }else{
+        return false
+    }
 }
 
 
 // Esta funcion muestra las cantidades de vida, mana y definitiva del campeon
-function estadoDelCampeon(jugador){
+export function estadoDelCampeon(jugador){
     console.log(`Estado de tu ${jugador.campeon.nombre}:`)
     console.log(`Vida: ${jugador.campeon.vida}`)
     console.log(`Mana: ${jugador.campeon.mana}`)
-    console.log(`Definitiva: ${jugador.campeon.habilidadesUsadas[3]}`)
+    console.log(`Habilidad Primaria (Q): Siempre disponible`)
+    console.log(`Habilidad Secundaria (W): ${jugador.campeon.habilidadesUsadas[1]}`)
+    console.log(`Habilidad de Control (E): ${jugador.campeon.habilidadesUsadas[2]}`)
+    console.log(`Habilidad Definitiva (R): ${jugador.campeon.habilidadesUsadas[3]}`)
 }

@@ -50,8 +50,9 @@ export function menuDeHabilidades(jugador){
     let respuesta
 
     do{
-        respuesta = prompt(`${jugador.nombre} elige tu movimiento: Q: Habilidad basica  R: Habilidad definitiva  F:Golpe`).toLocaleLowerCase()
-    }while(!(respuesta=="q" || respuesta=="r" || respuesta=="f"))
+        respuesta = prompt(`${jugador.nombre} elige tu movimiento: Q: Habilidad basica 
+        W: Habilidad Secundaria  E: Habilidad de Control  R: Habilidad definitiva  F:Golpe`).toLocaleLowerCase()
+    }while(!(respuesta=="q" || respuesta=="w" || respuesta=="e" || respuesta=="r" || respuesta=="f"))
 
     return respuesta
 }

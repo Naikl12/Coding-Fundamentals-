@@ -1,5 +1,5 @@
 import { ingresoNombreJugador, menuPersonajes, jugadorInvocaCampeon }   from "./menu.js";
-import { ahri, batalla } from "./personajes.js"
+import { ahri, batalla, estadoDelCampeon } from "./personajes.js"
 
 console.log("Bienvenidos a League of Michis")
 
@@ -23,10 +23,12 @@ jugador2.nombre = ingresoNombreJugador()
 console.log (`${jugador1.nombre} selecciona tu campeon!`)
 jugadorInvocaCampeon(jugador1, menuPersonajes())
 console.log (`${jugador1.nombre} elegiste ${jugador1.campeon.nombre}`)
+estadoDelCampeon(jugador1)
 
 console.log (`${jugador2.nombre} selecciona tu campeon!`)
 jugadorInvocaCampeon(jugador2, menuPersonajes())
 console.log (`${jugador2.nombre} elegiste ${jugador2.campeon.nombre}`)
+estadoDelCampeon(jugador2)
 
 //Empieza la batalla a muerte!
 
